@@ -12,7 +12,7 @@ pipeline {
           python3 --version
           pip --version
           pip install --upgrade pip
-          sudo pip install ansible-core==2.11.8 junit-xml pymongo xmljson jmespath kubernetes==12.0.1 openshift==0.12.1
+          pip install ansible-core==2.11.8 junit-xml pymongo xmljson jmespath kubernetes==12.0.1 openshift==0.12.1
           ansible --version
         '''
       }
