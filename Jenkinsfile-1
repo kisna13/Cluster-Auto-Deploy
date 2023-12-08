@@ -6,6 +6,8 @@ pipeline {
         sh '''
           python3 --version
           pip --version
+          ansible --version
+          ansible-playbook --version
         '''
       }
     }
