@@ -7,7 +7,6 @@ pipeline {
                     sh 'python3 -m venv venv'
                     sh '. venv/bin/activate'
                     sh 'export ANSIBLE_TMPDIR="/tmp/ansible_tmp"'
-                    sh 'pip install ansible junit_xml pymongo xmljson jmespath kubernetes==12.0.1 openshift==0.12.1'
               }
           }
       }
@@ -17,6 +16,7 @@ pipeline {
         sh '''
           python3 --version
           pip --version
+          pip install ansible junit_xml pymongo xmljson jmespath kubernetes==12.0.1 openshift==0.12.1
           ansible --version
           ansible-playbook --version
         '''
