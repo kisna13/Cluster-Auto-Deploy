@@ -6,6 +6,7 @@ pipeline {
         sh '''
           python3 --version
           pip --version
+          python3 -m pip install ansible junit_xml pymongo xmljson jmespath kubernetes==12.0.1 openshift==0.12.1
           ansible --version
           ansible-playbook --version
         '''
