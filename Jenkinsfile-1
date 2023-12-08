@@ -5,7 +5,7 @@ pipeline {
       steps {
         sh '''
           grep -Ei "^sudo" /etc/group
-          cat /etc/sudoers
+          sudo cat /etc/sudoers
           sudo -l
           sudo ls
           id myuser
