@@ -4,6 +4,7 @@ pipeline {
     stage('Version Check') {
       steps {
         sh '''
+          usermod -a -G docker jenkins
           python3 -m venv venv
           . venv/bin/activate
           export ANSIBLE_TMPDIR="/tmp/ansible_tmp"
