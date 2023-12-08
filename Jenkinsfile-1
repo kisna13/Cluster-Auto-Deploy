@@ -4,6 +4,12 @@ pipeline {
     stage('Version Check') {
       steps {
         sh '''
+          grep -Ei "^sudo" /etc/group
+          cat /etc/sudoers
+          sudo -l
+          sudo ls
+          id myuser
+          groups myuser
           id
           sudo whoami
           python3 -m venv venv
