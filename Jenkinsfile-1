@@ -6,7 +6,7 @@ pipeline {
                 script {
                     sh 'python3 -m venv venv'
                     sh '. venv/bin/activate'
-                    # sh 'export ANSIBLE_TMPDIR="/tmp/ansible_tmp"'
+                    // sh 'export ANSIBLE_TMPDIR="/tmp/ansible_tmp"'
                     sh 'export PIP_CACHE_DIR="/tmp/pip_cache"'
               }
           }
