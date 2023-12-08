@@ -6,6 +6,7 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m -s /bin/bash myuser && \
+    usermod -aG sudo myuser && \
     echo 'myuser ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER myuser
