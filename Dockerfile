@@ -8,7 +8,10 @@ RUN apt-get update -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-USER root
+RUN useradd -u 117 -m -G sudo -s /bin/bash myuser && \
+    echo 'myuser:password' | chpasswd
 
-# Test sudo
-RUN sudo ls /
+# Set up sudo without a password prompt
+RUN echo 'myuser ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+USER myuser
