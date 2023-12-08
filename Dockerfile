@@ -8,13 +8,7 @@ RUN apt-get update -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Add a user with sudo privileges
-RUN useradd -m -s /bin/bash myuser && \
-    echo 'myuser:password' | chpasswd && \
-    usermod -aG sudo myuser && \
-    echo 'myuser ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-USER myuser
+USER root
 
 # Test sudo
 RUN sudo ls /
