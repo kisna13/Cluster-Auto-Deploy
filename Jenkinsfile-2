@@ -61,7 +61,6 @@ pipeline {
                     export CLUSTER_TYPE="quickburn"
                     export CLUSTER_NAME="MYCLUSTER01"
                     export OCP_VERSION="4.13"
-                    //ansible-playbook playbooks/ocp_fyre_provision.yml
                     ls
                 '''
             }
