@@ -5,26 +5,41 @@ pipeline {
         stage('Installing Packages') {
             steps {
                 sh '''
-                    sudo add-apt-repository universe -y
-                    sudo apt-get update -y
-                    sudo apt install python3-pip -y
+                    add-apt-repository universe
+                    apt-get update
+                    apt install python3-pip
                     python3 --version
                     python3 -m pip install ansible junit_xml pymongo xmljson jmespath kubernetes==12.0.1 openshift==0.12.1
                     ansible --version
                     ansible-playbook --version
 
-                    ansible-galaxy collection install ibm.mas_devops
+                    ansible-galaxy collection install ibm.mas_devops   
                 '''
             }
         }
-        stage('Test') {
+        stage('Installing Openshift') {
             steps {
-                echo 'Testing..'
+                sh '''
+                    wget -q https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.8.35/openshift-client-linux.tar.gz
+                    tar -zxf openshift-client-linux.tar.gz
+                    sudo mv oc kubectl /usr/local/bin/
+                    sudo rm -rf openshift-client-linux.tar.gz 
+                '''
             }
         }
-        stage('Deploy') {
+        stage('Cloning MAS Devops') {
             steps {
-                echo 'Deploying....'
+                sh '''
+                    cd
+                    mkdir MAS
+                    cd MAS
+                    git clone https://github.com/ibm-mas/ansible-devops.git
+                    cd ansible-devops/
+                    git pull
+                    cd ../..
+                    mkdir mas_configs
+                    cd mas_configs
+                '''
             }
         }
     }
