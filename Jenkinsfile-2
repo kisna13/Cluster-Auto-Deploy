@@ -62,6 +62,7 @@ pipeline {
                     export CLUSTER_NAME="MYCLUSTER01"
                     export OCP_VERSION="4.13"
                     ls
+                    pwd
                 '''
             }
         }
