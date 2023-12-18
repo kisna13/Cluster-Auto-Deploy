@@ -33,7 +33,11 @@ pipeline {
                     cd
                     mkdir -p MAS
                     cd MAS
-                    git clone https://github.com/ibm-mas/ansible-devops.git
+
+                    if [ ! -d "ansible-devops" ]; then
+                        git clone https://github.com/ibm-mas/ansible-devops.git
+                    fi
+  
                     cd ansible-devops/
                     git pull
                     cd ../..
