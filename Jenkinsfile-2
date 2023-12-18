@@ -17,6 +17,7 @@ pipeline {
                 '''
             }
         }
+
         stage('Installing Openshift') {
             steps {
                 sh '''
@@ -27,6 +28,7 @@ pipeline {
                 '''
             }
         }
+
         stage('Cloning MAS Devops') {
             steps {
                 sh '''
@@ -37,12 +39,28 @@ pipeline {
                     if [ ! -d "ansible-devops" ]; then
                         git clone https://github.com/ibm-mas/ansible-devops.git
                     fi
-  
+                    
                     cd ansible-devops/
                     git pull
                     cd ../..
                     mkdir -p mas_configs
                     cd mas_configs
+                    cp /root/entitlement.lic .
+                    cd /root/MAS/ansible-devops/ibm/mas_devops/
+                '''
+            }
+        }
+
+        stage('Provisioning Cluster') {
+            steps {
+                sh '''
+                    export FYRE_USERNAME="kishan.koringa"
+                    export FYRE_APIKEY="oqcXtplOrsTYR9fk9qBpWFpDb92lNyJNgGiteuOSl"
+                    export FYRE_PRODUCT_ID="225"
+                    export CLUSTER_TYPE="quickburn"
+                    export CLUSTER_NAME="MYCLUSTER01"
+                    export OCP_VERSION="4.13"
+                    ansible-playbook playbooks/ocp_fyre_provision.yml
                 '''
             }
         }
