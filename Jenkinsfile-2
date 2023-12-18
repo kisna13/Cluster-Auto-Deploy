@@ -45,7 +45,7 @@ pipeline {
                     cd ../..
                     mkdir -p mas_configs
                     cd mas_configs
-                    cp /root/entitlement.lic .
+                    sudo cp /root/entitlement.lic .
                     cd /root/MAS/ansible-devops/ibm/mas_devops/
                 '''
             }
