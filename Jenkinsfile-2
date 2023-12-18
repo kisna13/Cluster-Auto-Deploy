@@ -47,7 +47,7 @@ pipeline {
                     cd mas_configs
                     sudo cp /root/entitlement.lic .
                     cd
-                    cd MAS/ansible-devops/ibm/mas_devops/
+                    cd MAS/ansible-devops/ibm/mas_devops/playbooks
                 '''
             }
         }
@@ -61,7 +61,8 @@ pipeline {
                     export CLUSTER_TYPE="quickburn"
                     export CLUSTER_NAME="MYCLUSTER01"
                     export OCP_VERSION="4.13"
-                    ansible-playbook playbooks/ocp_fyre_provision.yml
+                    //ansible-playbook playbooks/ocp_fyre_provision.yml
+                    ls
                 '''
             }
         }
