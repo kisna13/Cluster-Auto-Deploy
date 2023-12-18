@@ -5,16 +5,15 @@ pipeline {
         stage('Installing Packages') {
             steps {
                 sh '''
-                    sudo su
-                    add-apt-repository universe
-                    apt-get update
-                    apt install python3-pip
-                    python3 --version
-                    python3 -m pip install ansible junit_xml pymongo xmljson jmespath kubernetes==12.0.1 openshift==0.12.1
-                    ansible --version
-                    ansible-playbook --version
+                    sudo add-apt-repository universe
+                    sudo apt-get update
+                    sudo apt install python3-pip
+                    sudo python3 --version
+                    sudo python3 -m pip install ansible junit_xml pymongo xmljson jmespath kubernetes==12.0.1 openshift==0.12.1
+                    sudo ansible --version
+                    sudo ansible-playbook --version
 
-                    ansible-galaxy collection install ibm.mas_devops
+                    sudo ansible-galaxy collection install ibm.mas_devops
                 '''
             }
         }
