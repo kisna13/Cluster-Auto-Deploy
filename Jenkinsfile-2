@@ -31,13 +31,13 @@ pipeline {
             steps {
                 sh '''
                     cd
-                    mkdir MAS
+                    mkdir -p MAS
                     cd MAS
                     git clone https://github.com/ibm-mas/ansible-devops.git
                     cd ansible-devops/
                     git pull
                     cd ../..
-                    mkdir mas_configs
+                    mkdir -p mas_configs
                     cd mas_configs
                 '''
             }
