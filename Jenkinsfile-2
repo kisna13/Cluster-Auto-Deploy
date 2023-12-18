@@ -5,9 +5,9 @@ pipeline {
         stage('Installing Packages') {
             steps {
                 sh '''
-                    add-apt-repository universe
-                    apt-get update
-                    apt install python3-pip
+                    sudo add-apt-repository universe -y
+                    sudo apt-get update -y
+                    sudo apt install python3-pip -y
                     python3 --version
                     python3 -m pip install ansible junit_xml pymongo xmljson jmespath kubernetes==12.0.1 openshift==0.12.1
                     ansible --version
