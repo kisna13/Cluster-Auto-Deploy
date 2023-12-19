@@ -49,7 +49,7 @@ pipeline {
                     git pull
                     cd ../..
                     mkdir -p mas_configs
-                    sudo chmod -R 755 /root/mas_configs/
+                    sudo chmod -R 755 mas_configs
                     cd mas_configs
                     sudo cp /root/entitlement.lic .
                 '''
