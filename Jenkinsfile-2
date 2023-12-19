@@ -5,10 +5,6 @@ pipeline {
         string(name: 'OC_LOGIN_COMMAND', defaultValue: '', description: 'Your login command for Openshit cluster')
     }
 
-    options {
-        skipDefaultCheckout true
-    }
-
     stages {
 
         stage('Installing Packages') {
