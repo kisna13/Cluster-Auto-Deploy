@@ -81,7 +81,7 @@ pipeline {
 
         stage('Deploy Core'){
             steps{
-                sh '''
+                sh """
                 ${params.OC_LOGIN_COMMAND}
                 cd /root/MAS/ansible-devops/ibm/mas_devops/
                 export ROLE_NAME="ocs"
@@ -110,7 +110,7 @@ pipeline {
                 ansible-galaxy collection build --force
                 ansible-galaxy collection install ibm-mas_devops-*.tar.gz --ignore-certs --force
                 ansible-playbook playbooks/oneclick_core.yml
-                '''
+                """
             }
         }
     }
