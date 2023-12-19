@@ -17,7 +17,7 @@ pipeline {
                     ansible --version
                     ansible-playbook --version
 
-                    ansible-galaxy collection install ibm.mas_devops   
+                    sudo ansible-galaxy collection install ibm.mas_devops   
                 '''
             }
         }
