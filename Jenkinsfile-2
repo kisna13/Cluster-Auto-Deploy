@@ -49,21 +49,5 @@ pipeline {
                 '''
             }
         }
-
-        stage('Provisioning Cluster') {
-            steps {
-                sh '''
-                    cd
-                    cd MAS/ansible-devops/ibm/mas_devops/
-                    export FYRE_USERNAME="kishan.koringa"
-                    export FYRE_APIKEY="oqcXtplOrsTYR9fk9qBpWFpDb92lNyJNgGiteuOSl"
-                    export FYRE_PRODUCT_ID="225"
-                    export CLUSTER_TYPE="quickburn"
-                    export CLUSTER_NAME="MYCLUSTER01"
-                    export OCP_VERSION="4.13"
-                    ansible-playbook playbooks/ocp_fyre_provision.yml
-                '''
-            }
-        }
     }
 }   
