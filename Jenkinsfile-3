@@ -5,9 +5,25 @@ pipeline {
         stage('Create Directory in Root') {
             steps {
                 script {
-                    sh 'sudo mkdir -p /NEW'
-                    sh 'sudo chown -R jenkins:jenkins /NEW'
-                    sh 'pwd'
+                    // Create the directory in root
+                    sh 'sudo mkdir -p /new_directory_in_root'
+                    sh 'sudo chown -R jenkins:jenkins /new_directory_in_root'
+
+                    // Check if the directory exists
+                    def rootDir = '/new_directory_in_root'
+                    def dirExists = sh(script: "[ -d ${rootDir} ] && echo 'true' || echo 'false'", returnStatus: true).trim()
+
+                    // Print the result
+                    echo "Directory ${rootDir} exists: ${dirExists}"
+
+                    // Additional steps based on whether the directory exists or not
+                    if (dirExists == 'true') {
+                        // Directory exists, perform additional actions
+                        // For example, you can add more commands here
+                    } else {
+                        // Directory doesn't exist, handle accordingly
+                        // For example, you can add more commands here
+                    }
                 }
             }
         }
