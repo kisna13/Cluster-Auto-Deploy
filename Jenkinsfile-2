@@ -88,6 +88,7 @@ pipeline {
                 sh '''
                 cd /$HOME/MAS/ansible-devops/ibm/mas_devops/
                 export ROLE_NAME="ocs"
+                whoami
                 ansible-playbook playbooks/run_role.yml
                 export MAS_CONFIG_DIR=/root/mas_configs
                 export W3_USERNAME_LOWERCASE="pmqcloud@us.ibm.com"
