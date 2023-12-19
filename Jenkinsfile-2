@@ -39,7 +39,7 @@ pipeline {
                 sh '''
                     pwd
                     sudo mkdir -p MAS
-                    sudo chown -R jenkins:jenkins /MAS
+                    sudo chown -R jenkins:jenkins MAS
                     cd MAS
 
                     if [ ! -d "ansible-devops" ]; then
@@ -50,7 +50,7 @@ pipeline {
                     git pull
                     cd ../..
                     sudo mkdir -p mas_configs
-                    sudo chown -R jenkins:jenkins /mas_configs
+                    sudo chown -R jenkins:jenkins mas_configs
                     cd mas_configs
                     cp /root/entitlement.lic .
                 '''
