@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    parameters {
+        string(name: 'OC_LOGIN_COMMAND', defaultValue: '', description: 'Your login command for Openshit cluster')
+    }
+
     stages {
         stage('Installing Packages') {
             steps {
@@ -45,7 +49,56 @@ pipeline {
                     cd ../..
                     mkdir -p mas_configs
                     cd mas_configs
-                    sudo cp /root/entitlement.lic .
+                    cp /root/entitlement.lic .
+                '''
+            }
+        }
+
+        // stage('Provisioning Cluster') {
+        //     steps {
+        //         sh '''
+        //             export FYRE_USERNAME="kishan.koringa"
+        //             export FYRE_APIKEY="oqcXtplOrsTYR9fk9qBpWFpDb92lNyJNgGiteuOSl"
+        //             export FYRE_PRODUCT_ID="225"
+        //             export CLUSTER_TYPE="quickburn"
+        //             export CLUSTER_NAME="MYCLUSTER01"
+        //             export OCP_VERSION="4.13"
+        //             ansible-playbook playbooks/ocp_fyre_provision.yml
+        //         '''
+        //     }
+        // }
+
+        stage(''){
+            steps{
+                sh '''
+                ${params.OC_LOGIN_COMMAND}
+                cd /root/MAS/ansible-devops/ibm/mas_devops/
+                export ROLE_NAME="ocs"
+                ansible-playbook playbooks/run_role.yml
+                export MAS_CONFIG_DIR=/root/mas_configs
+                export W3_USERNAME_LOWERCASE="pmqcloud@us.ibm.com"
+                export ARTIFACTORY_USERNAME=$W3_USERNAME_LOWERCASE
+                export ARTIFACTORY_TOKEN="eyJ2ZXIiOiIyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiI1Z0dyZUE3SUk1NWNZelJDSmVHcDJXV01YSnV2SjJvWUNfeVcwNnM5WFQwIn0.eyJzdWIiOiJqZi1hY2Nlc3NAYzE0NTBhNDMtZjgyNS00MDA2LTg2ZjMtNDMzNzJiOTVmNjAxXC91c2Vyc1wvcG1xY2xvdWRAdXMuaWJtLmNvbSIsInNjcCI6ImFwcGxpZWQtcGVybWlzc2lvbnNcL3VzZXIiLCJhdWQiOlsiamZydEAqIiwiamZ4ckAqIl0sImlzcyI6ImpmLWFjY2Vzc0BjMTQ1MGE0My1mODI1LTQwMDYtODZmMy00MzM3MmI5NWY2MDEiLCJleHAiOjE3MDQ2MjU3NTMsImlhdCI6MTY5Njg0OTc1MywianRpIjoiYWRkYmY0M2UtYWQ5Yy00OGMwLThhNzUtMGRhOGIzM2Q0ODAxIn0.dZivp35RHFfKgn2T5BLu3dUjmrUfVUW_DPSj_pheg0jEElU6QafkyWNuvq4jfNCCDXne7ba9Gl880nZcS2Y67kkaV1eYmIN1IkTSrM3xtktnwr5Ny91Mq5X61SpnyXpqW8Bk4zb349gqflv39G9yFhMZBuRBeO95fKTLMJposBxqLqYyZSVm0g1kE2Wx6fgTCWCn0gndefZges0zZMe_3WxHKfvA2AjLR02TmAWx70Z3Pa24UqsVUE_it4-XMqUipK77N52DuXrpicYFnG8bMIJn-INC9uy4b1WcsNqduzCUi8jf2hFRpWVptrNfAkwrxT5WFAa6xUxmwet2Nsza0g"
+                export ARTIFACTORY_APIKEY="eyJ2ZXIiOiIyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiI1Z0dyZUE3SUk1NWNZelJDSmVHcDJXV01YSnV2SjJvWUNfeVcwNnM5WFQwIn0.eyJzdWIiOiJqZi1hY2Nlc3NAYzE0NTBhNDMtZjgyNS00MDA2LTg2ZjMtNDMzNzJiOTVmNjAxXC91c2Vyc1wvcG1xY2xvdWRAdXMuaWJtLmNvbSIsInNjcCI6ImFwcGxpZWQtcGVybWlzc2lvbnNcL3VzZXIiLCJhdWQiOlsiamZydEAqIiwiamZ4ckAqIl0sImlzcyI6ImpmLWFjY2Vzc0BjMTQ1MGE0My1mODI1LTQwMDYtODZmMy00MzM3MmI5NWY2MDEiLCJleHAiOjE3MDQ2MjU3NTMsImlhdCI6MTY5Njg0OTc1MywianRpIjoiYWRkYmY0M2UtYWQ5Yy00OGMwLThhNzUtMGRhOGIzM2Q0ODAxIn0.dZivp35RHFfKgn2T5BLu3dUjmrUfVUW_DPSj_pheg0jEElU6QafkyWNuvq4jfNCCDXne7ba9Gl880nZcS2Y67kkaV1eYmIN1IkTSrM3xtktnwr5Ny91Mq5X61SpnyXpqW8Bk4zb349gqflv39G9yFhMZBuRBeO95fKTLMJposBxqLqYyZSVm0g1kE2Wx6fgTCWCn0gndefZges0zZMe_3WxHKfvA2AjLR02TmAWx70Z3Pa24UqsVUE_it4-XMqUipK77N52DuXrpicYFnG8bMIJn-INC9uy4b1WcsNqduzCUi8jf2hFRpWVptrNfAkwrxT5WFAa6xUxmwet2Nsza0g"
+                export MAS_CHANNEL="9.0.x-stable"
+                export MAS_CATALOG_VERSION="v8-predict-dev-amd64"
+                export MAS_ICR_CP="docker-na-public.artifactory.swg-devops.com/wiotp-docker-local"
+                export MAS_ICR_CPOPEN="docker-na-public.artifactory.swg-devops.com/wiotp-docker-local/cpopen"
+                export MAS_CONFIG_DIR="/root/mas_configs"
+                export MAS_INSTANCE_ID="devops01"
+                export MAS_WORKSPACE_ID="main"
+                export MAS_ENTITLEMENT_USERNAME=$W3_USERNAME_LOWERCASE
+                export MAS_ENTITLEMENT_KEY=$ARTIFACTORY_APIKEY
+                export SLS_LICENSE_FILE="/root/mas_configs/entitlement.lic"
+                export IBM_ENTITLEMENT_KEY=${MAS_ENTITLEMENT_KEY}
+                export SLS_LICENSE_ID="0242ac110002"
+                export UDS_CONTACT_EMAIL="xxx@xxx.com"
+                export UDS_CONTACT_FIRSTNAME="xxx"
+                export UDS_CONTACT_LASTNAME="xxx"
+                ansible-galaxy collection install community.kubernetes
+                ansible-galaxy collection build --force
+                ansible-galaxy collection install ibm-mas_devops-*.tar.gz --ignore-certs --force
+                ansible-playbook playbooks/oneclick_core.yml
                 '''
             }
         }
