@@ -83,7 +83,7 @@ pipeline {
 
         stage('Deploy Core'){
             steps{
-                sh"${params.OC_LOGIN_COMMAND}"
+                sh"${params.OC_LOGIN_COMMAND} --insecure-skip-tls-verify"
 
                 sh '''
                 cd /root/MAS/ansible-devops/ibm/mas_devops/
