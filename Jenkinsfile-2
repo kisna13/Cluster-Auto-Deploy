@@ -48,9 +48,20 @@ pipeline {
                     git pull
                     cd ../..
                     mkdir -p mas_configs
-                    cd mas_configs
-                    [ ! -e entitlement.lic ] && sudo cp /root/entitlement.lic .
                 '''
+            }
+        }
+
+        stage('Copying License File') {
+            steps {
+                script{
+                    def fileExists = sh(script: "[ -e /root/mas_configs/entitlement.lic ]", returnStatus: true) == 0
+                    if (!fileExists) {
+                        echo "File does not exist. Copying..."
+                        sh "sudo cp /root/entitlement.lic /root/mas_configs/entitlement.lic"
+                        echo "File copied successfully."
+                    }
+                }
             }
         }
 
