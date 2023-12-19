@@ -48,22 +48,24 @@ pipeline {
                     git pull
                     cd ../..
                     mkdir -p mas_configs
+                    cd /mas_configs
+                    sudo cp /root/entitlement.lic .
                 '''
             }
         }
 
-        stage('Copying License File') {
-            steps {
-                script{
-                    def fileExists = sh(script: "[ -e /root/mas_configs/entitlement.lic ]", returnStatus: true) == 0
-                    if (!fileExists) {
-                        echo "File does not exist. Copying..."
-                        sh "sudo cp /root/entitlement.lic /root/mas_configs/entitlement.lic"
-                        echo "File copied successfully."
-                    }
-                }
-            }
-        }
+        // stage('Copying License File') {
+        //     steps {
+        //         script{
+        //             def fileExists = sh(script: "[ -e /root/mas_configs/entitlement.lic ]", returnStatus: true) == 0
+        //             if (!fileExists) {
+        //                 echo "File does not exist. Copying..."
+        //                 sh "sudo cp /root/entitlement.lic /root/mas_configs/entitlement.lic"
+        //                 echo "File copied successfully."
+        //             }
+        //         }
+        //     }
+        // }
 
         // stage('Provisioning Cluster') {
         //     steps {
@@ -81,8 +83,9 @@ pipeline {
 
         stage('Deploy Core'){
             steps{
-                sh """
-                ${params.OC_LOGIN_COMMAND}
+                sh"${params.OC_LOGIN_COMMAND}"
+
+                sh '''
                 cd /root/MAS/ansible-devops/ibm/mas_devops/
                 export ROLE_NAME="ocs"
                 ansible-playbook playbooks/run_role.yml
@@ -110,7 +113,7 @@ pipeline {
                 ansible-galaxy collection build --force
                 ansible-galaxy collection install ibm-mas_devops-*.tar.gz --ignore-certs --force
                 ansible-playbook playbooks/oneclick_core.yml
-                """
+                '''
             }
         }
     }
