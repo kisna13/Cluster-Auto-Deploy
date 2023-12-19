@@ -79,7 +79,7 @@ pipeline {
         //     }
         // }
 
-        stage(''){
+        stage('Deploy Core'){
             steps{
                 sh '''
                 ${params.OC_LOGIN_COMMAND}
