@@ -37,21 +37,20 @@ pipeline {
         stage('Cloning MAS Devops') {
             steps {
                 sh '''
-                    pwd
-                    sudo mkdir -p MAS
-                    sudo chown -R jenkins:jenkins MAS
-                    cd MAS
+                    sudo mkdir -p /root/MAS
+                    sudo chown -R jenkins:jenkins /root/MAS
+                    cd /root/MAS
 
                     if [ ! -d "ansible-devops" ]; then
                         git clone https://github.com/ibm-mas/ansible-devops.git
                     fi
 
-                    cd ansible-devops/
+                    cd /root/MAS/ansible-devops/
                     git pull
                     cd ../..
-                    sudo mkdir -p mas_configs
-                    sudo chown -R jenkins:jenkins mas_configs
-                    cd mas_configs
+                    sudo mkdir -p /root/mas_configs
+                    sudo chown -R jenkins:jenkins /root/mas_configs
+                    cd /root/mas_configs
                     cp /root/entitlement.lic .
                 '''
             }
@@ -89,11 +88,8 @@ pipeline {
                 sh"${params.OC_LOGIN_COMMAND} --insecure-skip-tls-verify"
 
                 sh '''
-                sudo su
-                pwd
                 cd /root/MAS/ansible-devops/ibm/mas_devops/
                 export ROLE_NAME="ocs"
-                pwd
                 ansible-playbook playbooks/run_role.yml
                 export MAS_CONFIG_DIR=/root/mas_configs
                 export W3_USERNAME_LOWERCASE="pmqcloud@us.ibm.com"
