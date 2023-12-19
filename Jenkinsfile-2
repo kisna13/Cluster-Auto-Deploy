@@ -42,18 +42,18 @@ pipeline {
                             pwd
                             mkdir -p MAS
                             cd MAS
-        
+
                             if [ ! -d "ansible-devops" ]; then
                                 git clone https://github.com/ibm-mas/ansible-devops.git
                             fi
-                            
+
                             cd ansible-devops/
                             git pull
-                            cd ../..
+                            cd ../../..
                             mkdir -p mas_configs
-                            sudo chmod -R 755 mas_configs
+                            chmod -R 755 mas_configs
                             cd mas_configs
-                            sudo cp /root/entitlement.lic .
+                            cp /root/entitlement.lic .
                         '''
                     }
                 }
