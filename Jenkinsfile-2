@@ -13,7 +13,7 @@ pipeline {
         stage('Run Entire Job as Root') {
             steps {
                 script {
-                    sh 'sudo -E env "PATH=$PATH" jenkins-agent -workDir $WORKSPACE'
+                    sh 'sudo -E env "PATH=$PATH" jenkins -workDir $WORKSPACE'
                 }
             }
         }
