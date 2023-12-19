@@ -5,6 +5,20 @@ pipeline {
         string(name: 'OC_LOGIN_COMMAND', defaultValue: '', description: 'Your login command for Openshit cluster')
     }
 
+    options {
+        skipDefaultCheckout true
+    }
+
+    stages {
+        stage('Run Entire Job as Root') {
+            steps {
+                script {
+                    sh 'sudo -E env "PATH=$PATH" jenkins-agent -workDir $WORKSPACE'
+                }
+            }
+        }
+    }
+
     stages {
         stage('Installing Packages') {
             steps {
@@ -17,7 +31,7 @@ pipeline {
                     ansible --version
                     ansible-playbook --version
 
-                    sudo ansible-galaxy collection install ibm.mas_devops   
+                    ansible-galaxy collection install ibm.mas_devops   
                 '''
             }
         }
