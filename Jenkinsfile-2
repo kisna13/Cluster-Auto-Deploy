@@ -49,7 +49,7 @@ pipeline {
                     cd ../..
                     mkdir -p mas_configs
                     cd mas_configs
-                    cp /root/entitlement.lic .
+                    sudo cp /root/entitlement.lic .
                 '''
             }
         }
