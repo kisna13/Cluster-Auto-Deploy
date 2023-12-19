@@ -37,7 +37,8 @@ pipeline {
         stage('Cloning MAS Devops') {
             steps {
                 sh '''
-                    sudo cd
+                    sudo su -
+                    cd
                     mkdir -p MAS
                     cd MAS
 
@@ -88,6 +89,7 @@ pipeline {
                 sh"${params.OC_LOGIN_COMMAND} --insecure-skip-tls-verify"
 
                 sh '''
+                sudo su -
                 sudo cd /$HOME/MAS/ansible-devops/ibm/mas_devops/
                 export ROLE_NAME="ocs"
                 pwd
