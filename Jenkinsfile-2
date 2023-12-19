@@ -88,7 +88,7 @@ pipeline {
                 sh"${params.OC_LOGIN_COMMAND} --insecure-skip-tls-verify"
 
                 sh '''
-                cd /root/MAS/ansible-devops/ibm/mas_devops/
+                cd /$HOME/MAS/ansible-devops/ibm/mas_devops/
                 export ROLE_NAME="ocs"
                 pwd
                 ansible-playbook playbooks/run_role.yml
