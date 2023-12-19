@@ -92,7 +92,7 @@ pipeline {
                 sh '''
                 sudo su
                 pwd
-                sudo cd /root/MAS/ansible-devops/ibm/mas_devops/
+                cd /root/MAS/ansible-devops/ibm/mas_devops/
                 export ROLE_NAME="ocs"
                 pwd
                 ansible-playbook playbooks/run_role.yml
