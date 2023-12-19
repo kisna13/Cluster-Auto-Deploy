@@ -48,7 +48,7 @@ pipeline {
                     git pull
                     cd ../..
                     mkdir -p mas_configs
-                    cd /mas_configs
+                    cd mas_configs
                     sudo cp /root/entitlement.lic .
                 '''
             }
