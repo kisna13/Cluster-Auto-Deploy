@@ -1,0 +1,14 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Create Directory in Root') {
+            steps {
+                script {
+                    sh 'sudo mkdir -p /NEW'
+                    sh 'sudo chown -R jenkins:jenkins /NEW'
+                }
+            }
+        }
+    }
+}
