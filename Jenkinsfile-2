@@ -36,27 +36,24 @@ pipeline {
 
         stage('Cloning MAS Devops') {
             steps {
-                script {
-                    dir('/root/MAS/ansible-devops/ibm/mas_devops/') {
-                        sh '''
-                            pwd
-                            mkdir -p MAS
-                            cd MAS
+                sh '''
+                    pwd
+                    sudo mkdir -p MAS
+                    sudo chown -R jenkins:jenkins /MAS
+                    cd MAS
 
-                            if [ ! -d "ansible-devops" ]; then
-                                git clone https://github.com/ibm-mas/ansible-devops.git
-                            fi
+                    if [ ! -d "ansible-devops" ]; then
+                        git clone https://github.com/ibm-mas/ansible-devops.git
+                    fi
 
-                            cd ansible-devops/
-                            git pull
-                            cd ../../..
-                            mkdir -p mas_configs
-                            chmod -R 755 mas_configs
-                            cd mas_configs
-                            cp /root/entitlement.lic .
-                        '''
-                    }
-                }
+                    cd ansible-devops/
+                    git pull
+                    cd ../..
+                    sudo mkdir -p mas_configs
+                    sudo chown -R jenkins:jenkins /mas_configs
+                    cd mas_configs
+                    cp /root/entitlement.lic .
+                '''
             }
         }
 
