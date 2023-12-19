@@ -37,7 +37,7 @@ pipeline {
         stage('Cloning MAS Devops') {
             steps {
                 sh '''
-                    cd /var/jenkins
+                    cd
                     mkdir -p MAS
                     cd MAS
 
@@ -49,6 +49,7 @@ pipeline {
                     git pull
                     cd ../..
                     mkdir -p mas_configs
+                    sudo chmod -R 755 /root/mas_configs/
                     cd mas_configs
                     sudo cp /root/entitlement.lic .
                 '''
