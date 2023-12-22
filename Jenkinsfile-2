@@ -105,5 +105,19 @@ pipeline {
                 '''
             }
         }
+        
+        stage('Deploy Manage'){
+            steps{
+                sh '''
+                export DB2_INSTANCE_NAME="db2w-shared"
+                export MANAGE_AIO_FLAG="false"
+                export MAS_APP_ID="manage"
+                export MAS_APP_CHANNEL="9.0.x-stable"
+                export MAS_APPWS_COMPONENTS="base=latest,health=latest"
+                export MAS_APP_SETTINGS_DB2_SCHEMA="maximo"$MAS_INSTANCE_ID
+                ansible-playbook playbooks/oneclick_add_manage.yml
+                '''
+            }
+        }
     }
 }   
