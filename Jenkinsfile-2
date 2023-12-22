@@ -109,6 +109,7 @@ pipeline {
         stage('Deploy Manage'){
             steps{
                 sh '''
+                cd /root/MAS/ansible-devops/ibm/mas_devops/
                 export DB2_INSTANCE_NAME="db2w-shared"
                 export MANAGE_AIO_FLAG="false"
                 export MAS_APP_ID="manage"
